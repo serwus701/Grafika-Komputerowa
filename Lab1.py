@@ -40,52 +40,6 @@ def render(time):
     glVertex2f(-50.0, 0.0)
     glEnd()
 
-
-#dick start
-    glColor3f(1.0, 1.0, 0.0)
-    glBegin( GL_LINE_LOOP )
-    for x in range (0, 64):
-        angle = (6.2832 * x / 64)
-        x = 0.5 * cos(angle)
-        y = 0.5 * sin(angle)
-        glVertex2f( float(x.real) * 50 + 25, float(y.real) * 50 - 50)
-    glEnd()
-
-    glColor3f(1.0, 1.0, 0.0)
-    glBegin( GL_LINE_LOOP )
-    for x in range (0, 64):
-        angle = (6.2832 * x / 64)
-        x = 0.5 * cos(angle)
-        y = 0.5 * sin(angle)
-        glVertex2f( float(x.real) * 50 - 25, float(y.real) * 50 - 50)
-    glEnd()
-
-    glBegin(GL_LINES)
-    glVertex2f(25,-25)
-    glVertex2f(25,75)
-    glEnd()
-
-    glBegin(GL_LINES)
-    glVertex2f(-25,-25)
-    glVertex2f(-25,75)
-    glEnd()
-
-    glColor3f(1.0, 1.0, 0.0)
-    glBegin( GL_LINE_LOOP )
-    for x in range (0, 33):
-        angle = (6.2832 * x / 64)
-        x = 0.5 * cos(angle)
-        y = 0.5 * sin(angle)
-        glVertex2f( float(x.real) * 50, float(y.real) * 50 + 75)
-    glEnd()
-
-    glBegin(GL_LINES)
-    glVertex2f(0,85)
-    glVertex2f(0,100)
-    glEnd()
-
-    #dick end
-
     glFlush()
 
 
