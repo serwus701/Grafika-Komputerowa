@@ -40,6 +40,8 @@ def render(time):
     glVertex2f(-50.0, 0.0)
     glEnd()
 
+
+#dick start
     glColor3f(1.0, 1.0, 0.0)
     glBegin( GL_LINE_LOOP )
     for x in range (0, 64):
@@ -81,6 +83,8 @@ def render(time):
     glVertex2f(0,85)
     glVertex2f(0,100)
     glEnd()
+
+    #dick end
 
     glFlush()
 
