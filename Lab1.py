@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from cmath import cos, sin
 import sys
+import random
 
 from glfw.GLFW import *
 
@@ -15,6 +15,29 @@ def startup():
 
 def shutdown():
     pass
+
+def rectangle(xPos, yPos, aSize, bSize, randomSeed):
+
+    random.seed(randomSeed)
+    deformation = random.random()
+
+    aSize *= deformation
+    bSize *= deformation
+
+    glBegin(GL_TRIANGLES)
+    glColor3f(0.0, 1.0, 1.0)
+    glVertex2f(xPos, yPos)
+    glVertex2f(xPos + aSize, yPos)
+    glVertex2f(xPos, yPos + bSize)
+    glEnd()
+
+
+    #glColor3f(1.0, 0.0, 0.0)
+    glBegin(GL_TRIANGLES)
+    glVertex2f(xPos + aSize, yPos)
+    glVertex2f(xPos, yPos + bSize)
+    glVertex2f(xPos + aSize, yPos + bSize)
+    glEnd()
 
 
 def render(time):
@@ -39,6 +62,8 @@ def render(time):
     glColor3f(0.0, 0.5, 0.0)
     glVertex2f(-50.0, 0.0)
     glEnd()
+
+    rectangle(-90, -70, 30, 50, 1)
 
     glFlush()
 
