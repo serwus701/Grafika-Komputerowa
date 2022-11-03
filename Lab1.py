@@ -16,31 +16,61 @@ def startup():
 def shutdown():
     pass
 
-def rectangle(xPos, yPos, aSize, bSize, randomSeed):
+def sierpinski(x_pos, y_pos, a_size, b_size, depth):
+    global max_depth
+    if depth >= max_depth:
+        rectangle(x_pos, y_pos, a_size, b_size, 0)
+    else:
+        a_size /= 3
+        b_size /= 3
 
-    random.seed(randomSeed)
+        sierpinski(x_pos, y_pos, a_size, b_size, depth + 1)
+        sierpinski(x_pos + a_size, y_pos, a_size, b_size, depth + 1)
+        sierpinski(x_pos + 2 * a_size, y_pos, a_size, b_size, depth + 1)
+        sierpinski(x_pos, y_pos + b_size, a_size, b_size, depth + 1)
+        #sierpinski(x_pos + a_size, y_pos + b_size, a_size, b_size, depth + 1)
+        sierpinski(x_pos + 2 * a_size, y_pos + b_size, a_size, b_size, depth + 1)
+        sierpinski(x_pos, y_pos + 2 * b_size, a_size, b_size, depth + 1)
+        sierpinski(x_pos + a_size, y_pos + 2 * b_size, a_size, b_size, depth + 1)
+        sierpinski(x_pos + 2 * a_size, y_pos + 2 * b_size, a_size, b_size, depth + 1)
+
+def rectangle(x_pos, y_pos, a_size, b_size, deformation_seed):
+
+    random.seed(deformation_seed)
     deformation = random.random()
 
-    aSize *= deformation
-    bSize *= deformation
+    a_size *= deformation
+    b_size *= deformation
+
+    global seed
+
+    random.seed(seed)
+    red = random.randint(0, 255)
+    print(red)
+    random.seed(seed)
+    green = random.randint(0, 255)
+    random.seed(seed)
+    blue = random.randint(0, 255)
+
+    random.seed(seed)
+    seed = random.random()
 
     glBegin(GL_TRIANGLES)
-    glColor3f(0.0, 1.0, 1.0)
-    glVertex2f(xPos, yPos)
-    glVertex2f(xPos + aSize, yPos)
-    glVertex2f(xPos, yPos + bSize)
+    glColor3f(red, green, blue)
+    glVertex2f(x_pos, y_pos)
+    glVertex2f(x_pos + a_size, y_pos)
+    glVertex2f(x_pos, y_pos + b_size)
     glEnd()
 
 
-    #glColor3f(1.0, 0.0, 0.0)
     glBegin(GL_TRIANGLES)
-    glVertex2f(xPos + aSize, yPos)
-    glVertex2f(xPos, yPos + bSize)
-    glVertex2f(xPos + aSize, yPos + bSize)
+    glVertex2f(x_pos + a_size, y_pos)
+    glVertex2f(x_pos, y_pos + b_size)
+    glVertex2f(x_pos + a_size, y_pos + b_size)
     glEnd()
 
 
-def render(time):
+def triangles():
     glClear(GL_COLOR_BUFFER_BIT)
 
     glBegin(GL_TRIANGLES)
@@ -91,6 +121,12 @@ def update_viewport(window, width, height):
 
 
 def main():
+    global max_depth
+    max_depth = 2
+
+    default_seed = random.random()
+    global seed
+
     if not glfwInit():
         sys.exit(-1)
 
@@ -105,7 +141,11 @@ def main():
 
     startup()
     while not glfwWindowShouldClose(window):
-        render(glfwGetTime())
+        #triangles()
+        
+        seed = default_seed
+        sierpinski(0, 0, 50, 50, 0)
+
         glfwSwapBuffers(window)
         glfwPollEvents()
     shutdown()
