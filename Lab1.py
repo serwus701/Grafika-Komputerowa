@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import random
 import sys
-import time
 
 from glfw.GLFW import *
 from OpenGL.GL import *
@@ -45,16 +44,16 @@ def rectangle(x_pos, y_pos, a_size, b_size, deformation_seed):
     global seed
 
     random.seed(seed)
-    red = random.randint(0, 255)
+    red = random.random()
     random.seed(seed + 1)
-    green = random.randint(0, 255)
+    green = random.random()
     random.seed(seed + 2)
-    blue = random.randint(0, 255)
+    blue = random.random()
 
     random.seed(seed)
     seed = random.random()
 
-    print(red, green, blue)
+    #print(red, green, blue)
     #time.sleep(1)
     glColor3f(red, green, blue)
 
@@ -124,7 +123,7 @@ def update_viewport(window, width, height):
 
 def main():
     global max_depth
-    max_depth = 2
+    max_depth = 4
 
     default_seed = random.random()
     global seed
