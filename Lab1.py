@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import random
 import sys
 
@@ -15,23 +14,23 @@ def startup():
 def shutdown():
     pass
 
-def sierpinski(x_pos, y_pos, a_size, b_size, depth):
+def sierpinski(x_pos, y_pos, a_size, b_size, depth, deformation):
     global max_depth
     if depth >= max_depth:
-        rectangle(x_pos, y_pos, a_size, b_size, 0)
+        rectangle(x_pos, y_pos, a_size, b_size, deformation)
     else:
         a_size /= 3
         b_size /= 3
 
-        sierpinski(x_pos, y_pos, a_size, b_size, depth + 1)
-        sierpinski(x_pos + a_size, y_pos, a_size, b_size, depth + 1)
-        sierpinski(x_pos + 2 * a_size, y_pos, a_size, b_size, depth + 1)
-        sierpinski(x_pos, y_pos + b_size, a_size, b_size, depth + 1)
-        #sierpinski(x_pos + a_size, y_pos + b_size, a_size, b_size, depth + 1)
-        sierpinski(x_pos + 2 * a_size, y_pos + b_size, a_size, b_size, depth + 1)
-        sierpinski(x_pos, y_pos + 2 * b_size, a_size, b_size, depth + 1)
-        sierpinski(x_pos + a_size, y_pos + 2 * b_size, a_size, b_size, depth + 1)
-        sierpinski(x_pos + 2 * a_size, y_pos + 2 * b_size, a_size, b_size, depth + 1)
+        sierpinski(x_pos, y_pos, a_size, b_size, depth + 1, deformation)
+        sierpinski(x_pos + a_size, y_pos, a_size, b_size, depth + 1, deformation)
+        sierpinski(x_pos + 2 * a_size, y_pos, a_size, b_size, depth + 1, deformation)
+        sierpinski(x_pos, y_pos + b_size, a_size, b_size, depth + 1, deformation)
+        #sierpinski(x_pos + a_size, y_pos + b_size, a_size, b_size, depth + 1, deformation)
+        sierpinski(x_pos + 2 * a_size, y_pos + b_size, a_size, b_size, depth + 1, deformation)
+        sierpinski(x_pos, y_pos + 2 * b_size, a_size, b_size, depth + 1, deformation)
+        sierpinski(x_pos + a_size, y_pos + 2 * b_size, a_size, b_size, depth + 1, deformation)
+        sierpinski(x_pos + 2 * a_size, y_pos + 2 * b_size, a_size, b_size, depth + 1, deformation)
 
 def rectangle(x_pos, y_pos, a_size, b_size, deformation_seed):
 
@@ -53,8 +52,6 @@ def rectangle(x_pos, y_pos, a_size, b_size, deformation_seed):
     random.seed(seed)
     seed = random.random()
 
-    #print(red, green, blue)
-    #time.sleep(1)
     glColor3f(red, green, blue)
 
     glBegin(GL_TRIANGLES)
@@ -94,8 +91,6 @@ def triangles():
     glVertex2f(-50.0, 0.0)
     glEnd()
 
-    rectangle(-90, -70, 30, 50, 1)
-
     glFlush()
 
 
@@ -123,7 +118,7 @@ def update_viewport(window, width, height):
 
 def main():
     global max_depth
-    max_depth = 4
+    max_depth = 3
 
     default_seed = random.random()
     global seed
@@ -141,11 +136,12 @@ def main():
     glfwSwapInterval(1)
 
     startup()
-    while not glfwWindowShouldClose(window):
-        #triangles()
-        
+    while not glfwWindowShouldClose(window): 
         seed = default_seed
-        sierpinski(0, 0, 50, 50, 0)
+
+        triangles()
+        #rectangle(0, 0, 50, 50, 0.5)
+        #sierpinski(-50, -50, 100, 100, 0, 0)
 
         glfwSwapBuffers(window)
         glfwPollEvents()
