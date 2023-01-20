@@ -73,8 +73,8 @@ def startup():
 
 
 def load_textures():
-    images.append(Image.open("tekstura.tga"))
-    images.append(Image.open("tosia.tga"))
+    images.append(Image.open("textures/D1_t.tga"))
+    images.append(Image.open("textures/celebryta.tga"))
 
     curr_image = images[0]
     glTexImage2D(
