@@ -101,9 +101,8 @@ def render(time):
 
     glRotatef(theta, 0.0, 1.0, 0.0)
 
-    #print_fixed_triangle()
-    print_fixed_rectangle()
-    #print_pyramid()
+    #print_fixed_rectangle()
+    print_pyramid()
     glFlush()
 
 
